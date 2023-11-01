@@ -30,12 +30,27 @@ requirements:
     - tqdm >=4.32.0
     - woodwork >=0.23.0
 test:
+  source_files:
+    - featuretools/tests
   commands:
     - pip check
+    - pytest -k "not (test_get_featuretools_root or test_nans)"
   imports:
     - featuretools
   requires:
     - pip
+    - boto3 >=1.17.46
+    - composeml >=0.8.0
+    - graphviz >=0.8.4
+    - moto >=3.0.7
+    - pyarrow >=3.0.0,<13.0.0
+    - pympler >=0.8
+    - pytest >=7.1.2
+    - pytest-timeout >=2.1.0
+    - pytest-xdist >=2.5.0
+    - python-graphviz >=0.8.4
+    - smart_open >=5.0.0
+    - urllib3 >=1.26.5
 
 about:
   doc_url: https://featuretools.alteryx.com
