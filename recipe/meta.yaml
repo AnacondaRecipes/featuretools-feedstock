@@ -9,6 +9,7 @@ source:
   sha256: 33612eb1528a55ce4700f0c420c7775f4ff0533d5f256251ad6c07a17787f774
 
 build:
+  skip: true  # [s390x]
   number: 0
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation -vv .
 
@@ -34,8 +35,8 @@ test:
     - featuretools/tests
   commands:
     - pip check
-    - pytest -k "not (test_get_featuretools_root or test_nans)" # [win]
-    - pytest -k "not test_get_featuretools_root"  #  [not win]
+    - pytest -k "not (test_get_featuretools_root or test_nans)"  # [win]
+    - pytest -k "not test_get_featuretools_root"  # [not win]
   imports:
     - featuretools
   requires:
@@ -52,7 +53,7 @@ test:
     - python-graphviz >=0.8.4
     - smart_open >=5.0.0
     - urllib3 >=1.26.5
-    - openblas  #  [not win]
+    - openblas  # [not win]
 
 about:
   doc_url: https://featuretools.alteryx.com
