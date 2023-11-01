@@ -10,7 +10,6 @@ source:
 
 build:
   number: 0
-  #trigger 1
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation -vv .
 
 requirements:
@@ -35,7 +34,8 @@ test:
     - featuretools/tests
   commands:
     - pip check
-    - pytest -k "not (test_get_featuretools_root or test_nans)"
+    - pytest -k "not (test_get_featuretools_root or test_nans)" # [win]
+    - pytest -k "not test_get_featuretools_root"  #  [not win]
   imports:
     - featuretools
   requires:
@@ -52,6 +52,7 @@ test:
     - python-graphviz >=0.8.4
     - smart_open >=5.0.0
     - urllib3 >=1.26.5
+    - openblas  #  [not win]
 
 about:
   doc_url: https://featuretools.alteryx.com
