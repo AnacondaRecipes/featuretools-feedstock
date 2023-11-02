@@ -9,7 +9,7 @@ source:
   sha256: 33612eb1528a55ce4700f0c420c7775f4ff0533d5f256251ad6c07a17787f774
 
 build:
-  skip: true  # [s390x]
+  skip: true  # [py<38 or s390x]
   number: 0
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation -vv .
 
@@ -18,10 +18,11 @@ requirements:
     - pip
     - python
     - wheel
+    - setuptools
     
   run:
     - cloudpickle >=1.5.0
-    - holidays >=0.13, <0.33.0
+    - holidays >=0.13,<0.33.0
     - numpy >=1.21.0
     - packaging >=20.0
     - pandas >=1.5.0
@@ -31,12 +32,11 @@ requirements:
     - tqdm >=4.32.0
     - woodwork >=0.23.0
 test:
-  source_files:
-    - featuretools/tests
   commands:
     - pip check
-    - pytest -k "not (test_get_featuretools_root or test_nans)"  # [win]
-    - pytest -k "not test_get_featuretools_root"  # [not win]
+    #test_nans fails with Intel MKL, so openblas is used
+    - pytest --pyargs featuretools -v -k "not test_nans"  # [win]
+    - pytest --pyargs featuretools -v  # [not win]
   imports:
     - featuretools
   requires:

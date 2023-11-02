@@ -3,3 +3,5 @@ upload_channels:
   - marekw
 channels:
   - marekw
+build_parameters:
+  - ""
