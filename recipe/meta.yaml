@@ -33,7 +33,8 @@ requirements:
     - woodwork >=0.23.0
 test:
   commands:
-    - pip check
+    # docker-py has an exact pinning for pywin32 that cause pip check to fail.
+    - pip check  # [not win]
     #test_nans fails with Intel MKL, so openblas is used
     - pytest --pyargs featuretools -v -k "not test_nans"  # [win]
     - pytest --pyargs featuretools -v  # [not win]
