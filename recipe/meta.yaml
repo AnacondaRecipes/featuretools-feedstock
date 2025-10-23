@@ -95,7 +95,7 @@ test:
 about:
   doc_url: https://featuretools.alteryx.com
   dev_url: https://github.com/alteryx/Featuretools
-  home: https://featuretools.com
+  home: https://featuretools.alteryx.com
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
