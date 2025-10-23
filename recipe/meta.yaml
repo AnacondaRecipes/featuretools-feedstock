@@ -48,6 +48,12 @@ requirements:
   "--ignore=featuretools/tests/computational_backend/test_calculate_feature_matrix.py",
   "--ignore=featuretools/tests/synthesis/test_dfs_method.py"
 ]%}
+{% set ignore_tests_win = [
+  "--deselect=featuretools/tests/primitive_tests/transform_primitive_tests/test_savgol_filter.py::TestSavgolFilter::test_nans",
+  "--deselect=featuretools/tests/entityset_tests/test_plotting.py::test_saving_png_file",
+  "--deselect=featuretools/tests/primitive_tests/test_feature_visualizer.py::test_saving_png_file",
+  "--deselect=featuretools/tests/primitive_tests/test_feature_visualizer.py::test_html_symbols"
+]%}
 test:
   source_files:
     - featuretools
@@ -56,7 +62,7 @@ test:
     # docker-py has an exact pinning for pywin32 that cause pip check to fail.
     - pip check  # [not win]
     #test_nans fails with Intel MKL, so openblas is used
-    - pytest --pyargs featuretools/tests -v {{ ignore_tests | join(" ")}} -k "not test_nans"  # [win]
+    - pytest --pyargs featuretools/tests -v {{ ignore_tests | join(" ")}} {{ ignore_tests_win | join(" ")}}  # [win]
     - pytest --pyargs featuretools/tests -v {{ ignore_tests | join(" ")}} # [not win]
   imports:
     - featuretools
@@ -83,6 +89,7 @@ test:
     - python-graphviz >=0.8.4
     - smart_open >=5.0.0
     - distributed >=2023.2.0
+    - openblas  # [not win]
     - urllib3 >=1.26.18
 
 about:
